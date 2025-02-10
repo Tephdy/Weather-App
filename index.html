@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <input type="text" id="latitude" placeholder="Enter latitude">
+        <input type="text" id="longitude" placeholder="Enter longitude">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="weather-info"></div>
+        <pre id="json-response"></pre>
+    </div>
+
+    <script>
+        async function getWeather() {
+            const latitude = document.getElementById("latitude").value;
+            const longitude = document.getElementById("longitude").value;
+            const apiKey = "0eb56757d237b7f65bc6100f5f14ff45";
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.cod !== 200) {
+                    document.getElementById("weather-info").innerHTML = `<p>${data.message}</p>`;
+                    document.getElementById("json-response").textContent = JSON.stringify(data, null, 2);
+                    return;
+                }
+                
+                document.getElementById("weather-info").innerHTML = `
+                    <h2>${data.name}, ${data.sys.country}</h2>
+                    <p>Temperature: ${data.main.temp}°C</p>
+                    <p>Humidity: ${data.main.humidity}%</p>
+                    <p>Weather: ${data.weather[0].description}</p>
+                `;
+                // document.getElementById("json-response").textContent = JSON.stringify({
+                //     temperature: data.main.temp,
+                //     humidity: data.main.humidity,
+                //     weather: data.weather[0].description
+                // }, null, 2);
+            } catch (error) {
+                document.getElementById("weather-info").innerHTML = `<p>Error fetching data</p>`;
+                document.getElementById("json-response").textContent = JSON.stringify({ error: "Failed to fetch data" }, null, 2);
+            }
+        }
+    </script>
+</body>
+</html>
