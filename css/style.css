@@ -13,6 +13,13 @@ body {
     border-radius: 10px;
 }
 
+.responsive-img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+}
+
 input, button {
     margin: 10px 0;
     padding: 10px;
