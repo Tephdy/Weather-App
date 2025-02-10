@@ -1,0 +1,4 @@
+https://home.openweathermap.org/
+
+email: tixera1240@prorsd.com
+password: fakePassword2499
