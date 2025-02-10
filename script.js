@@ -15,6 +15,7 @@ async function getWeather() {
         
         document.getElementById("weather-info").innerHTML = `
             <h2>${data.name}, ${data.sys.country}</h2>
+            <h4>(3 Hours Forecast)</h4>
             <p>Temperature: ${data.main.temp}°C</p>
             <p>Humidity: ${data.main.humidity}%</p>
             <p>Weather: ${data.weather[0].description}</p>
